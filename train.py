@@ -48,11 +48,26 @@ def get_args():
     parser.add_argument('--parallel', type=int, default=1, 
                         help='1 for parallel, 0 for non-parallel')
     parser.add_argument('--dist-url', default='tcp://localhost:10001', type=str,
-                    help='url used to set up distributed training')                                            
+                    help='url used to set up distributed training')
+    parser.add_argument('--wandb_project_name', type=str, metavar='N',
+                    help='wandb')
+    parser.add_argument('--exp_name', default=False,
+                    help='name of the experiment')                                            
 
     args = parser.parse_args()
 
     return args
+
+def setup_wandb(args):
+    # use wandb api key
+    wandb.login(key='18a861e71f78135d23eb672c08922edbfcb8d364')
+    # start a wandb run
+    id = wandb.util.generate_id()
+    wandb.init(id = id, resume = "allow", project=args.wandb_project_name, entity="siddsuresh97") 
+    config = wandb.config
+    #name the wandb run
+    wandb.run.name = args.exp_name
+
 
 def main(args):
     print('=> torch version : {}'.format(torch.__version__))
@@ -189,12 +204,13 @@ def do_train(train_loader, model, criterion, optimizer, epoch, args):
             end = time.time()   
 
         if i % args.print_freq == 0 and args.rank == 0:
+            wandb.log({"loss":loss.item()}, step=iters)
             progress.display(i)
 
 if __name__ == '__main__':
 
     args = get_args()
-
+    
     main(args)
 
 
