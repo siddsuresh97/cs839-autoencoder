@@ -52,7 +52,7 @@ def get_args():
                     help='url used to set up distributed training')
     parser.add_argument('--wandb_project_name', type=str, metavar='N',
                     help='wandb')
-    parser.add_argument('--exp_name', default=False,
+    parser.add_argument('--exp_name', type=str, metavar='N',
                     help='name of the experiment')                                            
 
     args = parser.parse_args()
