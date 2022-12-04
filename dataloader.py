@@ -66,7 +66,7 @@ def train_loader(args):
                             rank=args.rank,
                             num_replicas=args.world_size,
                             shuffle=True)         
-    else:  
+    else:
         train_sampler = None    
 
     train_loader = torch.utils.data.DataLoader(
@@ -77,7 +77,6 @@ def train_loader(args):
                     pin_memory=True,
                     sampler=train_sampler,
                     drop_last=(train_sampler is None))
-
     return train_loader
 
 def val_loader(args):

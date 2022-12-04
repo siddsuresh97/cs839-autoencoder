@@ -21,7 +21,9 @@ python3 -u train.py \
     --print-freq 10 \
     --pth-save-fold ${OUTPUT} \
     --pth-save-epoch 1 \
-    --parallel 1 \
-    --dist-url 'tcp://localhost:10001' 2>&1 | tee ${OUTPUT}/output.log \
+    --parallel 0 \
+    # --parallel 1 \
+    # --dist-url 'tcp://localhost:10001' 2>&1 | tee ${OUTPUT}/output.log \
+    # --dist-url 'file:///dist_training_file' 2>&1 | tee ${OUTPUT}/output.log \
     -- wandb_project_name 'cs839_autoencoder' \
     --exp_name 'baseline-${MODEL_ARC}'

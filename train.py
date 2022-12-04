@@ -70,6 +70,7 @@ def setup_wandb(args):
 
 
 def main(args):
+    setup_wandb(args)
     print('=> torch version : {}'.format(torch.__version__))
     ngpus_per_node = torch.cuda.device_count()
     print('=> ngpus : {}'.format(ngpus_per_node))
@@ -135,7 +136,7 @@ def main_worker(gpu, args):
         global current_lr
         current_lr = utils.adjust_learning_rate_cosine(optimizer, epoch, args)
 
-        train_loader.sampler.set_epoch(epoch)
+        # train_loader.sampler.set_epoch(epoch)
         
         # train for one epoch
         do_train(train_loader, model, criterion, optimizer, epoch, args)
