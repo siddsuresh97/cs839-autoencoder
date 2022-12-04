@@ -26,4 +26,4 @@ python3 -u train.py \
     # --dist-url 'tcp://localhost:10001' 2>&1 | tee ${OUTPUT}/output.log \
     # --dist-url 'file:///dist_training_file' 2>&1 | tee ${OUTPUT}/output.log \
     -- wandb_project_name 'cs839_autoencoder' \
-    --exp_name 'baseline-${MODEL_ARC}'
+    --exp_name 'baseline-vgg16'
