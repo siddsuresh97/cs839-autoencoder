@@ -30,6 +30,7 @@ class VGGAutoEncoder(nn.Module):
     def forward(self, x):
 
         x = self.encoder(x)
+        import ipdb;ipdb.set_trace()
         x = self.decoder(x)
 
         return x
@@ -74,7 +75,7 @@ class VGG(nn.Module):
 
 class VGGEncoder(nn.Module):
 
-    def __init__(self, configs, enable_bn=False):
+    def __init__(self, configs, enable_bn=False, norms_type = None):
 
         super(VGGEncoder, self).__init__()
 
@@ -87,6 +88,7 @@ class VGGEncoder(nn.Module):
         self.conv3 = EncoderBlock(input_dim=128, output_dim=256, hidden_dim=256, layers=configs[2], enable_bn=enable_bn)
         self.conv4 = EncoderBlock(input_dim=256, output_dim=512, hidden_dim=512, layers=configs[3], enable_bn=enable_bn)
         self.conv5 = EncoderBlock(input_dim=512, output_dim=512, hidden_dim=512, layers=configs[4], enable_bn=enable_bn)
+
     
     def forward(self, x):
 
