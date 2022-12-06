@@ -1,0 +1,23 @@
+=> wandb run name : resnet18_baseline resnet18_baseline
+=> torch version : 1.10.1+cu111
+=> ngpus : 2
+Traceback (most recent call last):
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/train.py", line 251, in <module>
+    main(args)
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/train.py", line 99, in main
+    main_worker(ngpus_per_node, args)
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/train.py", line 122, in main_worker
+    leuven_bce_transposed = pd.read_csv('leuven_bce_transposed.csv', index_col=0)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/pandas/util/_decorators.py", line 311, in wrapper
+    return func(*args, **kwargs)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/pandas/io/parsers/readers.py", line 680, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/pandas/io/parsers/readers.py", line 575, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/pandas/io/parsers/readers.py", line 933, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/pandas/io/parsers/readers.py", line 1217, in _make_engine
+    self.handles = get_handle(  # type: ignore[call-overload]
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/pandas/io/common.py", line 789, in get_handle
+    handle = open(
+FileNotFoundError: [Errno 2] No such file or directory: 'leuven_bce_transposed.csv'

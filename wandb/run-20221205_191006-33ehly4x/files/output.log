@@ -1,0 +1,16 @@
+=> wandb run name : resnet18_baseline resnet18_baseline
+=> torch version : 1.10.1+cu111
+=> ngpus : 2
+=> modeling the network resnet18 ...
+Traceback (most recent call last):
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/train.py", line 251, in <module>
+    main(args)
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/train.py", line 99, in main
+    main_worker(ngpus_per_node, args)
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/train.py", line 137, in main_worker
+    model = builder.BuildAutoEncoder(args)
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/models/builer.py", line 17, in BuildAutoEncoder
+    model = resnet.ResNetAutoEncoder(configs, bottleneck, args.leuven)
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/models/resnet.py", line 31, in __init__
+    self.leuven_encoder = LeuvenResnetEncoder(configs=configs, bottleneck=bottleneck)
+TypeError: __init__() got an unexpected keyword argument 'configs'

@@ -9,10 +9,12 @@ def BuildAutoEncoder(args):
         configs = vgg.get_configs(args.arch)
         model = vgg.VGGAutoEncoder(configs)
 
-    elif args.arch in ["resnet18", "resnet34", "resnet50", "resnet101", "resnet152"]:
+    elif args.arch in ["resnet34", "resnet50", "resnet101", "resnet152"]:
         configs, bottleneck = resnet.get_configs(args.arch)
         model = resnet.ResNetAutoEncoder(configs, bottleneck)
-    
+    elif args.arch in ["resnet18"]:
+        configs, bottleneck = resnet.get_configs(args.arch)
+        model = resnet.ResNetAutoEncoder(configs, bottleneck, args.leuven)
     else:
         return None
     

@@ -1,0 +1,183 @@
+2022-12-05 19:11:23,162 INFO    StreamThr :878017 [internal.py:wandb_internal():88] W&B internal server running at pid: 878017, started at: 2022-12-05 19:11:23.159182
+2022-12-05 19:11:23,166 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: status
+2022-12-05 19:11:23,168 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: status
+2022-12-05 19:11:23,171 DEBUG   SenderThread:878017 [sender.py:send():303] send: header
+2022-12-05 19:11:23,172 INFO    WriterThread:878017 [datastore.py:open_for_write():75] open: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/run-1zhoe9ef.wandb
+2022-12-05 19:11:23,185 DEBUG   SenderThread:878017 [sender.py:send():303] send: run
+2022-12-05 19:11:23,211 INFO    SenderThread:878017 [sender.py:_maybe_setup_resume():593] checking resume status for siddsuresh97/cs839-autoencoder/1zhoe9ef
+2022-12-05 19:11:23,523 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: check_version
+2022-12-05 19:11:23,531 INFO    SenderThread:878017 [dir_watcher.py:__init__():216] watching files in: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files
+2022-12-05 19:11:23,531 INFO    SenderThread:878017 [sender.py:_start_run_threads():928] run started: 1zhoe9ef with start time 1670289083.1518
+2022-12-05 19:11:23,531 DEBUG   SenderThread:878017 [sender.py:send():303] send: summary
+2022-12-05 19:11:23,532 INFO    SenderThread:878017 [sender.py:_save_file():1171] saving file wandb-summary.json with policy end
+2022-12-05 19:11:23,532 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: check_version
+2022-12-05 19:11:23,626 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: run_start
+2022-12-05 19:11:23,644 DEBUG   HandlerThread:878017 [system_info.py:__init__():31] System info init
+2022-12-05 19:11:23,644 DEBUG   HandlerThread:878017 [system_info.py:__init__():46] System info init done
+2022-12-05 19:11:23,644 INFO    HandlerThread:878017 [system_monitor.py:start():150] Starting system monitor
+2022-12-05 19:11:23,644 INFO    SystemMonitor:878017 [system_monitor.py:_start():116] Starting system asset monitoring threads
+2022-12-05 19:11:23,644 INFO    HandlerThread:878017 [system_monitor.py:probe():168] Collecting system info
+2022-12-05 19:11:23,645 INFO    SystemMonitor:878017 [interfaces.py:start():168] Started cpu
+2022-12-05 19:11:23,646 INFO    SystemMonitor:878017 [interfaces.py:start():168] Started disk
+2022-12-05 19:11:23,648 INFO    SystemMonitor:878017 [interfaces.py:start():168] Started gpu
+2022-12-05 19:11:23,650 INFO    SystemMonitor:878017 [interfaces.py:start():168] Started memory
+2022-12-05 19:11:23,651 INFO    SystemMonitor:878017 [interfaces.py:start():168] Started network
+2022-12-05 19:11:23,721 DEBUG   HandlerThread:878017 [system_info.py:probe():195] Probing system
+2022-12-05 19:11:23,722 DEBUG   HandlerThread:878017 [system_info.py:_probe_git():180] Probing git
+2022-12-05 19:11:23,745 DEBUG   HandlerThread:878017 [system_info.py:_probe_git():188] Probing git done
+2022-12-05 19:11:23,745 DEBUG   HandlerThread:878017 [system_info.py:probe():241] Probing system done
+2022-12-05 19:11:23,745 DEBUG   HandlerThread:878017 [system_monitor.py:probe():177] {'os': 'Linux-5.15.0-48-generic-x86_64-with-glibc2.35', 'python': '3.9.12', 'heartbeatAt': '2022-12-06T01:11:23.721398', 'startedAt': '2022-12-06T01:11:23.142666', 'docker': None, 'cuda': None, 'args': ('--arch', 'resnet18', '--train_list', 'list/ecoset_leuven_updated_list.txt', '--workers', '16', '--epochs', '100', '--start-epoch', '0', '--batch-size', '256', '--learning-rate', '0.05', '--momentum', '0.9', '--weight-decay', '1e-4', '--print-freq', '10', '--pth-save-fold', 'r/media/external/siddsuresh97/model_weights/cs839/', '--pth-save-epoch', '1', '--parallel', '0', '--exp_name', 'resnet18_baseline'), 'state': 'running', 'program': '/home/siddsuresh97/Projects/cs839-autoencoder/train.py', 'codePath': 'train.py', 'git': {'remote': 'https://github.com/siddsuresh97/cs839-autoencoder', 'commit': 'c043cd99975b19bbe4d7a8bd91b0c046aade4d73'}, 'email': 'sidd.suresh97@gmail.com', 'root': '/home/siddsuresh97/Projects/cs839-autoencoder', 'host': 'nowak-gpu-2', 'username': 'siddsuresh97', 'executable': '/home/siddsuresh97/packages/anaconda3/bin/python', 'cpu_count': 24, 'cpu_count_logical': 48, 'cpu_freq': {'current': 2179.4496249999997, 'min': 1000.0, 'max': 3200.0}, 'cpu_freq_per_core': [{'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 1803.925, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 1000.0, 'min': 1000.0, 'max': 3200.0}, {'current': 1032.289, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 1099.044, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2960.35, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}, {'current': 2200.0, 'min': 1000.0, 'max': 3200.0}], 'disk': {'total': 1758.8579597473145, 'used': 1311.7579154968262}, 'gpu': 'NVIDIA GeForce RTX 3090', 'gpu_count': 2, 'gpu_devices': [{'name': 'NVIDIA GeForce RTX 3090', 'memory_total': 25769803776}, {'name': 'NVIDIA GeForce RTX 3090', 'memory_total': 25769803776}], 'memory': {'total': 93.0352783203125}}
+2022-12-05 19:11:23,745 INFO    HandlerThread:878017 [system_monitor.py:probe():178] Finished collecting system info
+2022-12-05 19:11:23,745 INFO    HandlerThread:878017 [system_monitor.py:probe():181] Publishing system info
+2022-12-05 19:11:23,745 DEBUG   HandlerThread:878017 [system_info.py:_save_pip():51] Saving list of pip packages installed into the current environment
+2022-12-05 19:11:23,747 DEBUG   HandlerThread:878017 [system_info.py:_save_pip():67] Saving pip packages done
+2022-12-05 19:11:23,747 DEBUG   HandlerThread:878017 [system_info.py:_save_conda():74] Saving list of conda packages installed into the current environment
+2022-12-05 19:11:24,535 INFO    Thread-13 :878017 [dir_watcher.py:_on_file_created():275] file/dir created: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/conda-environment.yaml
+2022-12-05 19:11:24,536 INFO    Thread-13 :878017 [dir_watcher.py:_on_file_created():275] file/dir created: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/requirements.txt
+2022-12-05 19:11:24,537 INFO    Thread-13 :878017 [dir_watcher.py:_on_file_created():275] file/dir created: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/wandb-summary.json
+2022-12-05 19:11:29,539 INFO    Thread-13 :878017 [dir_watcher.py:_on_file_modified():292] file/dir modified: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/conda-environment.yaml
+2022-12-05 19:11:29,605 DEBUG   HandlerThread:878017 [system_info.py:_save_conda():86] Saving conda packages done
+2022-12-05 19:11:29,607 INFO    HandlerThread:878017 [system_monitor.py:probe():183] Finished publishing system info
+2022-12-05 19:11:29,612 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: stop_status
+2022-12-05 19:11:29,616 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: stop_status
+2022-12-05 19:11:29,708 DEBUG   SenderThread:878017 [sender.py:send():303] send: telemetry
+2022-12-05 19:11:29,708 DEBUG   SenderThread:878017 [sender.py:send():303] send: telemetry
+2022-12-05 19:11:29,709 DEBUG   SenderThread:878017 [sender.py:send():303] send: run
+2022-12-05 19:11:29,820 INFO    SenderThread:878017 [sender.py:send_run():812] updated run: 1zhoe9ef
+2022-12-05 19:11:29,822 DEBUG   SenderThread:878017 [sender.py:send():303] send: files
+2022-12-05 19:11:29,822 INFO    SenderThread:878017 [sender.py:_save_file():1171] saving file wandb-metadata.json with policy now
+2022-12-05 19:11:30,258 INFO    Thread-16 :878017 [upload_job.py:push():143] Uploaded file /tmp/tmprpjsjbscwandb/3e7j6ihc-wandb-metadata.json
+2022-12-05 19:11:30,539 INFO    Thread-13 :878017 [dir_watcher.py:_on_file_modified():292] file/dir modified: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/config.yaml
+2022-12-05 19:11:30,540 INFO    Thread-13 :878017 [dir_watcher.py:_on_file_created():275] file/dir created: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/wandb-metadata.json
+2022-12-05 19:11:30,540 INFO    Thread-13 :878017 [dir_watcher.py:_on_file_created():275] file/dir created: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/output.log
+2022-12-05 19:11:32,540 INFO    Thread-13 :878017 [dir_watcher.py:_on_file_modified():292] file/dir modified: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/output.log
+2022-12-05 19:11:36,543 INFO    Thread-13 :878017 [dir_watcher.py:_on_file_modified():292] file/dir modified: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/output.log
+2022-12-05 19:11:38,544 INFO    Thread-13 :878017 [dir_watcher.py:_on_file_modified():292] file/dir modified: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/output.log
+2022-12-05 19:11:44,716 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: stop_status
+2022-12-05 19:11:44,717 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: stop_status
+2022-12-05 19:11:54,553 INFO    Thread-13 :878017 [dir_watcher.py:_on_file_modified():292] file/dir modified: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/config.yaml
+2022-12-05 19:11:59,807 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: stop_status
+2022-12-05 19:11:59,807 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: stop_status
+2022-12-05 19:12:14,896 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: stop_status
+2022-12-05 19:12:14,897 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: stop_status
+2022-12-05 19:12:19,561 DEBUG   SenderThread:878017 [sender.py:send():303] send: exit
+2022-12-05 19:12:19,561 INFO    SenderThread:878017 [sender.py:send_exit():442] handling exit code: 1
+2022-12-05 19:12:19,562 INFO    SenderThread:878017 [sender.py:send_exit():444] handling runtime: 55
+2022-12-05 19:12:19,565 INFO    SenderThread:878017 [sender.py:_save_file():1171] saving file wandb-summary.json with policy end
+2022-12-05 19:12:19,566 INFO    SenderThread:878017 [sender.py:send_exit():450] send defer
+2022-12-05 19:12:19,566 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: defer
+2022-12-05 19:12:19,567 INFO    HandlerThread:878017 [handler.py:handle_request_defer():162] handle defer: 0
+2022-12-05 19:12:19,567 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: defer
+2022-12-05 19:12:19,567 INFO    SenderThread:878017 [sender.py:send_request_defer():459] handle sender defer: 0
+2022-12-05 19:12:19,567 INFO    SenderThread:878017 [sender.py:transition_state():463] send defer: 1
+2022-12-05 19:12:19,568 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: defer
+2022-12-05 19:12:19,568 INFO    Thread-13 :878017 [dir_watcher.py:_on_file_modified():292] file/dir modified: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/wandb-summary.json
+2022-12-05 19:12:19,568 INFO    HandlerThread:878017 [handler.py:handle_request_defer():162] handle defer: 1
+2022-12-05 19:12:19,569 INFO    HandlerThread:878017 [system_monitor.py:finish():160] Stopping system monitor
+2022-12-05 19:12:19,569 DEBUG   SystemMonitor:878017 [system_monitor.py:_start():130] Starting system metrics aggregation loop
+2022-12-05 19:12:19,570 DEBUG   SystemMonitor:878017 [system_monitor.py:_start():137] Finished system metrics aggregation loop
+2022-12-05 19:12:19,570 DEBUG   SystemMonitor:878017 [system_monitor.py:_start():141] Publishing last batch of metrics
+2022-12-05 19:12:19,574 INFO    HandlerThread:878017 [interfaces.py:finish():173] Joined cpu
+2022-12-05 19:12:19,574 INFO    HandlerThread:878017 [interfaces.py:finish():173] Joined disk
+2022-12-05 19:12:19,701 INFO    HandlerThread:878017 [interfaces.py:finish():173] Joined gpu
+2022-12-05 19:12:19,701 INFO    HandlerThread:878017 [interfaces.py:finish():173] Joined memory
+2022-12-05 19:12:19,701 INFO    HandlerThread:878017 [interfaces.py:finish():173] Joined network
+2022-12-05 19:12:19,702 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: defer
+2022-12-05 19:12:19,702 INFO    SenderThread:878017 [sender.py:send_request_defer():459] handle sender defer: 1
+2022-12-05 19:12:19,703 INFO    SenderThread:878017 [sender.py:transition_state():463] send defer: 2
+2022-12-05 19:12:19,703 DEBUG   SenderThread:878017 [sender.py:send():303] send: stats
+2022-12-05 19:12:19,704 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: defer
+2022-12-05 19:12:19,705 INFO    HandlerThread:878017 [handler.py:handle_request_defer():162] handle defer: 2
+2022-12-05 19:12:19,705 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: defer
+2022-12-05 19:12:19,705 INFO    SenderThread:878017 [sender.py:send_request_defer():459] handle sender defer: 2
+2022-12-05 19:12:19,705 INFO    SenderThread:878017 [sender.py:transition_state():463] send defer: 3
+2022-12-05 19:12:19,706 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: defer
+2022-12-05 19:12:19,706 INFO    HandlerThread:878017 [handler.py:handle_request_defer():162] handle defer: 3
+2022-12-05 19:12:19,706 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: defer
+2022-12-05 19:12:19,706 INFO    SenderThread:878017 [sender.py:send_request_defer():459] handle sender defer: 3
+2022-12-05 19:12:19,706 INFO    SenderThread:878017 [sender.py:transition_state():463] send defer: 4
+2022-12-05 19:12:19,707 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: defer
+2022-12-05 19:12:19,707 INFO    HandlerThread:878017 [handler.py:handle_request_defer():162] handle defer: 4
+2022-12-05 19:12:19,708 DEBUG   SenderThread:878017 [sender.py:send():303] send: summary
+2022-12-05 19:12:19,708 INFO    SenderThread:878017 [sender.py:_save_file():1171] saving file wandb-summary.json with policy end
+2022-12-05 19:12:19,709 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: defer
+2022-12-05 19:12:19,709 INFO    SenderThread:878017 [sender.py:send_request_defer():459] handle sender defer: 4
+2022-12-05 19:12:19,709 INFO    SenderThread:878017 [sender.py:transition_state():463] send defer: 5
+2022-12-05 19:12:19,710 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: defer
+2022-12-05 19:12:19,710 INFO    HandlerThread:878017 [handler.py:handle_request_defer():162] handle defer: 5
+2022-12-05 19:12:19,710 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: defer
+2022-12-05 19:12:19,710 INFO    SenderThread:878017 [sender.py:send_request_defer():459] handle sender defer: 5
+2022-12-05 19:12:19,710 INFO    SenderThread:878017 [sender.py:transition_state():463] send defer: 6
+2022-12-05 19:12:19,711 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: defer
+2022-12-05 19:12:19,711 INFO    HandlerThread:878017 [handler.py:handle_request_defer():162] handle defer: 6
+2022-12-05 19:12:19,711 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: defer
+2022-12-05 19:12:19,711 INFO    SenderThread:878017 [sender.py:send_request_defer():459] handle sender defer: 6
+2022-12-05 19:12:20,562 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: poll_exit
+2022-12-05 19:12:20,569 INFO    Thread-13 :878017 [dir_watcher.py:_on_file_modified():292] file/dir modified: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/wandb-summary.json
+2022-12-05 19:12:21,572 INFO    SenderThread:878017 [sender.py:transition_state():463] send defer: 7
+2022-12-05 19:12:21,572 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: poll_exit
+2022-12-05 19:12:21,578 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: defer
+2022-12-05 19:12:21,578 INFO    HandlerThread:878017 [handler.py:handle_request_defer():162] handle defer: 7
+2022-12-05 19:12:21,578 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: defer
+2022-12-05 19:12:21,579 INFO    SenderThread:878017 [sender.py:send_request_defer():459] handle sender defer: 7
+2022-12-05 19:12:21,579 INFO    Thread-13 :878017 [dir_watcher.py:_on_file_modified():292] file/dir modified: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/output.log
+2022-12-05 19:12:21,580 INFO    SenderThread:878017 [dir_watcher.py:finish():362] shutting down directory watcher
+2022-12-05 19:12:21,580 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: poll_exit
+2022-12-05 19:12:22,582 INFO    SenderThread:878017 [dir_watcher.py:finish():392] scan: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files
+2022-12-05 19:12:22,583 INFO    SenderThread:878017 [dir_watcher.py:finish():406] scan save: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/conda-environment.yaml conda-environment.yaml
+2022-12-05 19:12:22,583 INFO    SenderThread:878017 [dir_watcher.py:finish():406] scan save: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/output.log output.log
+2022-12-05 19:12:22,584 INFO    SenderThread:878017 [dir_watcher.py:finish():406] scan save: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/requirements.txt requirements.txt
+2022-12-05 19:12:22,584 INFO    SenderThread:878017 [dir_watcher.py:finish():406] scan save: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/config.yaml config.yaml
+2022-12-05 19:12:22,591 INFO    SenderThread:878017 [dir_watcher.py:finish():406] scan save: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/wandb-summary.json wandb-summary.json
+2022-12-05 19:12:22,593 INFO    SenderThread:878017 [dir_watcher.py:finish():406] scan save: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/wandb-metadata.json wandb-metadata.json
+2022-12-05 19:12:22,598 INFO    SenderThread:878017 [sender.py:transition_state():463] send defer: 8
+2022-12-05 19:12:22,598 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: poll_exit
+2022-12-05 19:12:22,613 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: defer
+2022-12-05 19:12:22,614 INFO    HandlerThread:878017 [handler.py:handle_request_defer():162] handle defer: 8
+2022-12-05 19:12:22,621 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: defer
+2022-12-05 19:12:22,621 INFO    SenderThread:878017 [sender.py:send_request_defer():459] handle sender defer: 8
+2022-12-05 19:12:22,622 INFO    SenderThread:878017 [file_pusher.py:finish():168] shutting down file pusher
+2022-12-05 19:12:23,048 INFO    Thread-20 :878017 [upload_job.py:push():143] Uploaded file /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/config.yaml
+2022-12-05 19:12:23,062 INFO    Thread-19 :878017 [upload_job.py:push():143] Uploaded file /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/requirements.txt
+2022-12-05 19:12:23,067 INFO    Thread-18 :878017 [upload_job.py:push():143] Uploaded file /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/output.log
+2022-12-05 19:12:23,075 INFO    Thread-17 :878017 [upload_job.py:push():143] Uploaded file /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/conda-environment.yaml
+2022-12-05 19:12:23,083 INFO    Thread-21 :878017 [upload_job.py:push():143] Uploaded file /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/files/wandb-summary.json
+2022-12-05 19:12:23,284 INFO    Thread-12 :878017 [sender.py:transition_state():463] send defer: 9
+2022-12-05 19:12:23,285 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: defer
+2022-12-05 19:12:23,285 INFO    HandlerThread:878017 [handler.py:handle_request_defer():162] handle defer: 9
+2022-12-05 19:12:23,286 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: defer
+2022-12-05 19:12:23,286 INFO    SenderThread:878017 [sender.py:send_request_defer():459] handle sender defer: 9
+2022-12-05 19:12:23,286 INFO    SenderThread:878017 [file_pusher.py:join():173] waiting for file pusher
+2022-12-05 19:12:23,286 INFO    SenderThread:878017 [sender.py:transition_state():463] send defer: 10
+2022-12-05 19:12:23,287 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: defer
+2022-12-05 19:12:23,287 INFO    HandlerThread:878017 [handler.py:handle_request_defer():162] handle defer: 10
+2022-12-05 19:12:23,287 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: defer
+2022-12-05 19:12:23,287 INFO    SenderThread:878017 [sender.py:send_request_defer():459] handle sender defer: 10
+2022-12-05 19:12:23,390 INFO    SenderThread:878017 [sender.py:transition_state():463] send defer: 11
+2022-12-05 19:12:23,391 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: defer
+2022-12-05 19:12:23,391 INFO    HandlerThread:878017 [handler.py:handle_request_defer():162] handle defer: 11
+2022-12-05 19:12:23,391 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: defer
+2022-12-05 19:12:23,391 INFO    SenderThread:878017 [sender.py:send_request_defer():459] handle sender defer: 11
+2022-12-05 19:12:23,391 INFO    SenderThread:878017 [sender.py:transition_state():463] send defer: 12
+2022-12-05 19:12:23,392 DEBUG   SenderThread:878017 [sender.py:send():303] send: final
+2022-12-05 19:12:23,393 DEBUG   SenderThread:878017 [sender.py:send():303] send: footer
+2022-12-05 19:12:23,393 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: defer
+2022-12-05 19:12:23,393 INFO    HandlerThread:878017 [handler.py:handle_request_defer():162] handle defer: 12
+2022-12-05 19:12:23,393 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: defer
+2022-12-05 19:12:23,393 INFO    SenderThread:878017 [sender.py:send_request_defer():459] handle sender defer: 12
+2022-12-05 19:12:23,395 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: poll_exit
+2022-12-05 19:12:23,396 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: poll_exit
+2022-12-05 19:12:23,396 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: server_info
+2022-12-05 19:12:23,398 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: get_summary
+2022-12-05 19:12:23,398 DEBUG   SenderThread:878017 [sender.py:send_request():317] send_request: server_info
+2022-12-05 19:12:23,404 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: sampled_history
+2022-12-05 19:12:23,597 INFO    MainThread:878017 [wandb_run.py:_footer_history_summary_info():3377] rendering history
+2022-12-05 19:12:23,597 INFO    MainThread:878017 [wandb_run.py:_footer_history_summary_info():3409] rendering summary
+2022-12-05 19:12:23,597 INFO    MainThread:878017 [wandb_run.py:_footer_sync_info():3333] logging synced files
+2022-12-05 19:12:23,599 DEBUG   HandlerThread:878017 [handler.py:handle_request():139] handle_request: shutdown
+2022-12-05 19:12:23,599 INFO    HandlerThread:878017 [handler.py:finish():814] shutting down handler
+2022-12-05 19:12:24,392 INFO    WriterThread:878017 [datastore.py:close():279] close: /home/siddsuresh97/Projects/cs839-autoencoder/wandb/run-20221205_191123-1zhoe9ef/run-1zhoe9ef.wandb
+2022-12-05 19:12:24,596 INFO    SenderThread:878017 [sender.py:finish():1331] shutting down sender
+2022-12-05 19:12:24,596 INFO    SenderThread:878017 [file_pusher.py:finish():168] shutting down file pusher
+2022-12-05 19:12:24,597 INFO    SenderThread:878017 [file_pusher.py:join():173] waiting for file pusher
+2022-12-05 19:12:24,603 INFO    MainThread:878017 [internal.py:handle_exit():78] Internal process exited

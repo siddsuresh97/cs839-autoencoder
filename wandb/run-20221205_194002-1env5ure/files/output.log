@@ -1,0 +1,61 @@
+=> wandb run name : resnet18_leuven_bce resnet18_leuven_bce
+=> torch version : 1.10.1+cu111
+=> ngpus : 2
+=> modeling the network resnet18 ...
+=> num of params: 40499849 (154M)
+=> building the oprimizer ...
+=> building the dataloader ...
+=> building the criterion ...
+=> starting training engine ...
+> /home/siddsuresh97/Projects/cs839-autoencoder/train.py(219)do_train()
+    218             import ipdb;ipdb.set_trace()
+--> 219             output, leuven_output = model(input)
+    220             leuven_target = torch.tensor(np.array([leuven_bce_transposed[list(train_loader.dataset.class_to_idx.keys())[i]].to_numpy() for i in target])).cuda(non_blocking=True)
+RuntimeError: Caught RuntimeError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/nn/parallel/parallel_apply.py", line 61, in _worker
+    output = module(*input, **kwargs)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/models/resnet.py", line 38, in forward
+    leuven_normspace = self.leuven_encoder(x)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/models/resnet.py", line 98, in forward
+    x = self.encoder(x)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/nn/modules/container.py", line 141, in forward
+    input = module(input)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/nn/modules/pooling.py", line 1167, in forward
+    return F.adaptive_avg_pool2d(input, self.output_size)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/nn/functional.py", line 1131, in adaptive_avg_pool2d
+    return torch._C._nn.adaptive_avg_pool2d(input, _output_size)
+RuntimeError: CUDA out of memory. Tried to allocate 14.00 GiB (GPU 0; 23.70 GiB total capacity; 6.52 GiB already allocated; 13.17 GiB free; 8.84 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+> /home/siddsuresh97/Projects/cs839-autoencoder/train.py(219)do_train()
+    218             import ipdb;ipdb.set_trace()
+--> 219             output, leuven_output = model(input)
+    220             leuven_target = torch.tensor(np.array([leuven_bce_transposed[list(train_loader.dataset.class_to_idx.keys())[i]].to_numpy() for i in target])).cuda(non_blocking=True)
+Traceback (most recent call last):
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/train.py", line 252, in <module>
+    main(args)
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/train.py", line 99, in main
+    main_worker(ngpus_per_node, args)
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/train.py", line 173, in main_worker
+    do_train(train_loader, model, criterion, optimizer, epoch, args, leuven_bce_transposed)
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/train.py", line 219, in do_train
+    output, leuven_output = model(input)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/bdb.py", line 94, in trace_dispatch
+    return self.dispatch_exception(frame, arg)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/bdb.py", line 174, in dispatch_exception
+    if self.quitting: raise BdbQuit
+bdb.BdbQuit
+If you suspect this is an IPython 8.5.0 bug, please report it at:
+    https://github.com/ipython/ipython/issues
+or send an email to the mailing list at ipython-dev@python.org
+You can print a more detailed traceback right now with "%tb", or use "%debug"
+to interactively debug it.
+Extra-detailed tracebacks for bug-reporting purposes can be enabled via:
+    %config Application.verbose_crash=True

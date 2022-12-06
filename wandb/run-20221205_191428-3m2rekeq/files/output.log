@@ -1,0 +1,35 @@
+=> wandb run name : resnet18_baseline resnet18_baseline
+=> torch version : 1.10.1+cu111
+=> ngpus : 2
+=> modeling the network resnet18 ...
+=> num of params: 53107337 (202M)
+=> building the oprimizer ...
+=> building the dataloader ...
+=> building the criterion ...
+=> starting training engine ...
+[32m2022-12-05 19:14:52.685[39m | [1mINFO    [22m | [36mutils[39m:[36mdisplay[39m:[36m60[39m - [1mEpoch: [1][   0/1196]	Time  13.62 ( 13.62)	Data 6.02 (6.02)	Loss 0.1119 (0.1119)	LR 0.0500 (0.0500)
+[32m2022-12-05 19:14:57.103[39m | [1mINFO    [22m | [36mutils[39m:[36mdisplay[39m:[36m60[39m - [1mEpoch: [1][  10/1196]	Time   0.44 (  1.64)	Data 0.00 (0.55)	Loss 0.0888 (0.1008)	LR 0.0500 (0.0500)
+[32m2022-12-05 19:15:01.519[39m | [1mINFO    [22m | [36mutils[39m:[36mdisplay[39m:[36m60[39m - [1mEpoch: [1][  20/1196]	Time   0.44 (  1.07)	Data 0.00 (0.29)	Loss 0.0847 (0.0938)	LR 0.0500 (0.0500)
+[32m2022-12-05 19:15:06.109[39m | [1mINFO    [22m | [36mutils[39m:[36mdisplay[39m:[36m60[39m - [1mEpoch: [1][  30/1196]	Time   0.44 (  0.87)	Data 0.00 (0.19)	Loss 0.0802 (0.0896)	LR 0.0500 (0.0500)
+Traceback (most recent call last):
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/train.py", line 251, in <module>
+    main(args)
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/train.py", line 99, in main
+    main_worker(ngpus_per_node, args)
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/train.py", line 173, in main_worker
+    do_train(train_loader, model, criterion, optimizer, epoch, args, leuven_bce_transposed)
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/train.py", line 208, in do_train
+    for i, (input, target) in enumerate(train_loader):
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 521, in __next__
+    data = self._next_data()
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1186, in _next_data
+    idx, data = self._get_data()
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 1142, in _get_data
+    success, data = self._try_get_data()
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 990, in _try_get_data
+    data = self._data_queue.get(timeout=timeout)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/queue.py", line 180, in get
+    self.not_empty.wait(remaining)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/threading.py", line 316, in wait
+    gotit = waiter.acquire(True, timeout)
+KeyboardInterrupt

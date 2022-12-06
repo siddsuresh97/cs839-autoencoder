@@ -6,7 +6,8 @@ def get_configs(arch='resnet50'):
     # True or False means wether to use BottleNeck
 
     if arch == 'resnet18':
-        return [2, 2, 2, 2], False
+        # return [2, 2, 2, 2], False
+        return [2, 2, 2, 2], True
     elif arch == 'resnet34':
         return [3, 4, 6, 3], False
     elif arch == 'resnet50':
@@ -18,21 +19,30 @@ def get_configs(arch='resnet50'):
     else:
         raise ValueError("Undefined model")
 
+
 class ResNetAutoEncoder(nn.Module):
 
-    def __init__(self, configs, bottleneck):
+    def __init__(self, configs, bottleneck, leuven):
 
         super(ResNetAutoEncoder, self).__init__()
 
         self.encoder = ResNetEncoder(configs=configs,       bottleneck=bottleneck)
         self.decoder = ResNetDecoder(configs=configs[::-1], bottleneck=bottleneck)
+        self.leuven_encoder = LeuvenResnetEncoder()
+        # self.leuven_decoder = LeuvenResnetDecoder()
+        self.leuven = leuven
     
     def forward(self, x):
-
         x = self.encoder(x)
+        if self.leuven:
+            leuven_normspace = self.leuven_encoder(x)
+            # x = self.leuven_decoder(leuven_normspace)
         x = self.decoder(x)
 
-        return x
+        if self.leuven:
+            return x, leuven_normspace
+        else:
+            return x
 
 class ResNet(nn.Module):
 
@@ -71,6 +81,38 @@ class ResNet(nn.Module):
         x = self.fc(x)
 
         return x
+
+class LeuvenResnetEncoder(nn.Module):
+    def __init__ (self):
+        super(LeuvenResnetEncoder, self).__init__()
+        self.encoder = nn.Sequential(
+            nn.AdaptiveAvgPool2d((None,2048)),
+            nn.Linear(2048, 2048),
+            nn.ReLU(),
+            nn.Linear(2048, 2048),
+            nn.ReLU(),
+            nn.Linear(2048, 2057)
+        )
+    def forward(self, x):
+        # import ipdb;ipdb.set_trace()
+        x = self.encoder(x)
+        return x
+
+# class LeuvenResnetDecoder(nn.Module):
+#     def __init__ (self):
+#         super(LeuvenResnetDecoder, self).__init__()
+#         self.decoder = nn.Sequential(
+#             nn.Linear(2057, 2048),
+#             nn.ReLU(),
+#             nn.Linear(2048, 2048),
+#             nn.ReLU(),
+#             nn.Linear(2048, 2048),
+#             nn.ReLU(),
+#             nn.AdaptiveAvgPool2d((1, 1))
+#         )
+#     def forward(self, x):
+#         x = self.decoder(x)
+#         return x
 
 
 class ResNetEncoder(nn.Module):

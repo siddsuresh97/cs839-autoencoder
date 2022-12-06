@@ -1,0 +1,39 @@
+=> wandb run name : resnet18_baseline resnet18_baseline
+=> torch version : 1.10.1+cu111
+=> ngpus : 2
+=> modeling the network resnet18 ...
+=> num of params: 53107337 (202M)
+=> building the oprimizer ...
+=> building the dataloader ...
+=> building the criterion ...
+=> starting training engine ...
+Traceback (most recent call last):
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/train.py", line 251, in <module>
+    main(args)
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/train.py", line 99, in main
+    main_worker(ngpus_per_node, args)
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/train.py", line 173, in main_worker
+    do_train(train_loader, model, criterion, optimizer, epoch, args, leuven_bce_transposed)
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/train.py", line 222, in do_train
+    output = model(input)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/nn/parallel/data_parallel.py", line 168, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/nn/parallel/data_parallel.py", line 178, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/nn/parallel/parallel_apply.py", line 86, in parallel_apply
+    output.reraise()
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/_utils.py", line 434, in reraise
+    raise exception
+AttributeError: Caught AttributeError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/nn/parallel/parallel_apply.py", line 61, in _worker
+    output = module(*input, **kwargs)
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/siddsuresh97/Projects/cs839-autoencoder/models/resnet.py", line 36, in forward
+    if self.leuven:
+  File "/home/siddsuresh97/packages/anaconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1177, in __getattr__
+    raise AttributeError("'{}' object has no attribute '{}'".format(
+AttributeError: 'ResNetAutoEncoder' object has no attribute 'leuven'

@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 import os
+import numpy as np
+import pandas as pd
 import wandb
 import time
 import argparse
@@ -53,8 +55,13 @@ def get_args():
     parser.add_argument('--wandb_project_name', type=str, metavar='N',
                     help='wandb')
     parser.add_argument('--exp_name', type=str, metavar='N',
-                    help='name of the experiment')                                            
+                    help='name of the experiment') 
 
+    # add a store_true argument
+    parser.add_argument('--leuven', action='store_true', help='leuven')
+    # add a float argument 
+    parser.add_argument('--lambda_', type=float, default=1, help='loss hyperparameter')
+    
     args = parser.parse_args()
 
     return args
@@ -68,6 +75,7 @@ def setup_wandb(args):
     config = wandb.config
     #name the wandb run
     wandb.run.name = args.exp_name
+    print('=> wandb run name : {}'.format(wandb.run.name), args.exp_name)
 
 
 def main(args):
@@ -89,8 +97,29 @@ def main(args):
     else:
         args.world_size = 1
         main_worker(ngpus_per_node, args)
+
+def LeuvenLoss(output, target, leuven_output, leuven_target, lambda_, iter, batch_size):
+    # compute the loss which is a combination of the binary cross entropy loss and the mse loss
+    # the loss is a weighted sum of the two losses
+    # the weights are determined by the lambda parameter
+    
+    # compute the binary cross entropy loss
+    BCE = nn.BCELoss()
+    BCE_loss = BCE(leuven_output, leuven_target)
+
+    # compute the mse loss
+    MSE = nn.MSELoss()
+    MSE_loss = MSE(output, target)
+
+    # compute the total loss
+    if iter%30 == 0:
+        print('BCE_loss: ', BCE_loss)
+        print('MSE_loss: ', MSE_loss)
+    total_loss = lambda_ * BCE_loss +  MSE_loss
+    return total_loss
     
 def main_worker(gpu, args):
+    leuven_bce_transposed = pd.read_csv('leuven_bce_transposed.csv', index_col=0)
     utils.init_seeds(1 + gpu, cuda_deterministic=False)
     if args.parallel == 1:
         args.gpu = gpu
@@ -124,6 +153,7 @@ def main_worker(gpu, args):
 
     if args.rank == 0:
         print('=> building the criterion ...')
+    
     criterion = nn.MSELoss()
 
     global iters
@@ -140,12 +170,13 @@ def main_worker(gpu, args):
         # train_loader.sampler.set_epoch(epoch)
         
         # train for one epoch
-        do_train(train_loader, model, criterion, optimizer, epoch, args)
+        do_train(train_loader, model, criterion, optimizer, epoch, args, leuven_bce_transposed)
 
         # save pth
         if epoch % args.pth_save_epoch == 0 and args.rank == 0:
             state_dict = model.state_dict()
-
+            if not os.path.exists(os.path.join(args.pth_save_fold, args.exp_name)):
+                os.makedirs(os.path.join(args.pth_save_fold, args.exp_name))
             torch.save(
                 {
                     'epoch': epoch + 1,
@@ -153,13 +184,13 @@ def main_worker(gpu, args):
                     'state_dict': state_dict,
                     'optimizer' : optimizer.state_dict(),
                 },
-                os.path.join(args.pth_save_fold, '{}.pth'.format(str(epoch).zfill(3)))
+                os.path.join(args.pth_save_fold, args.exp_name, '{}.pth'.format(str(epoch).zfill(3)))
             )
             
             print(' : save pth for epoch {}'.format(epoch + 1))
 
 
-def do_train(train_loader, model, criterion, optimizer, epoch, args):
+def do_train(train_loader, model, criterion, optimizer, epoch, args, leuven_bce_transposed):
     batch_time = utils.AverageMeter('Time', ':6.2f')
     data_time = utils.AverageMeter('Data', ':2.2f')
     losses = utils.AverageMeter('Loss', ':.4f')
@@ -183,9 +214,13 @@ def do_train(train_loader, model, criterion, optimizer, epoch, args):
         input = input.cuda(non_blocking=True)
         target = target.cuda(non_blocking=True)
 
-        output = model(input)
-
-        loss = criterion(output, target)
+        if args.leuven:
+            output, leuven_output = model(input)
+            leuven_target = torch.tensor(np.array([leuven_bce_transposed[list(train_loader.dataset.class_to_idx.keys())[i]].to_numpy() for i in target])).cuda(non_blocking=True)
+            loss = LeuvenLoss(output, target, leuven_output, leuven_target, args.lambda_, iter, args.batch_size)
+        else:
+            output = model(input)
+            loss = criterion(output, target)
 
         # compute gradient and do solver step
         optimizer.zero_grad()
