@@ -75,6 +75,8 @@ def setup_wandb(args):
     config = wandb.config
     #name the wandb run
     wandb.run.name = args.exp_name
+    if args.resume:
+        wandb.run = wandb.init(resume='must')
     print('=> wandb run name : {}'.format(wandb.run.name), args.exp_name)
 
 
