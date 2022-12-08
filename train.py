@@ -90,7 +90,12 @@ def resume_from_checkpoint(model, optimizer, args):
         model = utils.load_dict(resume_path, model)
         #load the optimizer state
         optimizer = utils.load_dict_optim(resume_path, optimizer)
-
+        start_epoch = epoch_fname.split('.')[0]
+        if start_epoch[0] == '0':
+            start_epoch = int(start_epoch[1:])
+        else:
+            start_epoch = int(start_epoch)
+        args.start_epoch = start_epoch
     else:
         print('=> no pth found at {} ...'.format(resume_path))
         exit()
