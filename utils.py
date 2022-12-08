@@ -94,3 +94,15 @@ def load_dict(resume_path, model):
     else:
         sys.exit("=> No checkpoint found at '{}'".format(resume_path))
     return model
+
+def load_dict_optim(resume_path, optimizer):
+    if os.path.isfile(resume_path):
+        checkpoint = torch.load(resume_path)
+        optimizer_dict = optimizer.state_dict()
+        optimizer_dict.update(checkpoint['optimizer'])
+        optimizer.load_state_dict(optimizer_dict)
+        # delete to release more space
+        del checkpoint
+    else:
+        sys.exit("=> No checkpoint found at '{}'".format(resume_path))
+    return optimizer

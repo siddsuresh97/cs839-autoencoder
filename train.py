@@ -56,11 +56,11 @@ def get_args():
                     help='wandb')
     parser.add_argument('--exp_name', type=str, metavar='N',
                     help='name of the experiment') 
-
     # add a store_true argument
     parser.add_argument('--leuven', action='store_true', help='leuven')
     # add a float argument 
     parser.add_argument('--lambda_', type=float, default=1, help='loss hyperparameter')
+    parser.add_argument('--resume', action='store_true', help='leuven')
     
     args = parser.parse_args()
 
@@ -77,6 +77,25 @@ def setup_wandb(args):
     wandb.run.name = args.exp_name
     print('=> wandb run name : {}'.format(wandb.run.name), args.exp_name)
 
+
+def resume_from_checkpoint(model, optimizer, args):
+    saved_checpoints = os.listdir(args.folder)
+    saved_checpoints.sort()
+    epoch_fname = saved_checpoints[-1]
+    print(epoch_fname)
+    import ipdb; ipdb.set_trace()
+    print("Epoch {}".format(epoch_fname))
+    resume_path = os.path.join(args.folder, epoch_fname)
+    if os.path.isfile(resume_path):
+        print('=> loading pth from {} ...'.format(resume_path)) 
+        model = utils.load_dict(resume_path, model)
+        #load the optimizer state
+        optimizer = utils.load_dict_optim(resume_path, optimizer)
+
+    else:
+        print('=> no pth found at {} ...'.format(resume_path))
+        exit()
+    return model, optimizer
 
 def main(args):
     setup_wandb(args)
@@ -145,6 +164,8 @@ def main_worker(gpu, args):
     if args.rank == 0:
         print('=> building the oprimizer ...')
     optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), args.lr,weight_decay=args.weight_decay)
+    if args.resume:
+        model, optimizer = resume_from_checkpoint(model, optimizer, args)
     # optimizer = torch.optim.SGD(
     #         filter(lambda p: p.requires_grad, model.parameters()),
     #         args.lr,
