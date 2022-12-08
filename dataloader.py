@@ -36,7 +36,7 @@ class ImageDataset(data.Dataset):
         
         img = self.transform(img)
 
-        return img, img
+        return img, img, target
 
     def __len__(self):
         return len(self.im_names)

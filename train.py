@@ -96,29 +96,32 @@ def main(args):
         mp.spawn(main_worker, nprocs=args.gpus, args=(args,))
     else:
         args.world_size = 1
-        main_worker(ngpus_per_node, args)
+        main_worker(1, args)
 
-def LeuvenLoss(output, target, leuven_output, leuven_target, lambda_, iter, batch_size):
+def LeuvenLoss(output, target, leuven_output, leuven_target, lambda_, iter, batch_size, pos_weights):
     # compute the loss which is a combination of the binary cross entropy loss and the mse loss
     # the loss is a weighted sum of the two losses
     # the weights are determined by the lambda parameter
-    
     # compute the binary cross entropy loss
-    BCE = nn.BCELoss()
-    BCE_loss = BCE(leuven_output, leuven_target)
+    # BCE = nn.BCEWithLogitsLoss(pos_weight=torch.from_numpy(pos_weights.to_numpy()).cuda(non_blocking=True))
+    BCE = nn.BCEWithLogitsLoss() 
+    # BCE = nn.BCELoss()
+    # leuven_output = leuven_output.sigmoid() 
+    BCE_loss = BCE(leuven_output, leuven_target.to(torch.float32))
 
     # compute the mse loss
     MSE = nn.MSELoss()
     MSE_loss = MSE(output, target)
 
-    # compute the total loss
-    if iter%30 == 0:
-        print('BCE_loss: ', BCE_loss)
-        print('MSE_loss: ', MSE_loss)
+    # # compute the total loss
+    # if iter%30 == 0:
+    #     print('BCE_loss: ', BCE_loss)
+    #     print('MSE_loss: ', MSE_loss)
     total_loss = lambda_ * BCE_loss +  MSE_loss
-    return total_loss
+    return total_loss,BCE_loss.item(), MSE_loss.item() 
     
 def main_worker(gpu, args):
+    # leuven_bce_transposed = pd.read_csv('leuven_bce_transposed_clean_with_pos_weight.csv', index_col=0)
     leuven_bce_transposed = pd.read_csv('leuven_bce_transposed.csv', index_col=0)
     utils.init_seeds(1 + gpu, cuda_deterministic=False)
     if args.parallel == 1:
@@ -141,12 +144,12 @@ def main_worker(gpu, args):
     
     if args.rank == 0:
         print('=> building the oprimizer ...')
-    # optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), args.lr,)
-    optimizer = torch.optim.SGD(
-            filter(lambda p: p.requires_grad, model.parameters()),
-            args.lr,
-            momentum=args.momentum,
-            weight_decay=args.weight_decay)    
+    optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), args.lr,weight_decay=args.weight_decay)
+    # optimizer = torch.optim.SGD(
+    #         filter(lambda p: p.requires_grad, model.parameters()),
+    #         args.lr,
+    #         momentum=args.momentum,
+    #         weight_decay=args.weight_decay)    
     if args.rank == 0:
         print('=> building the dataloader ...')
     train_loader = dataloader.train_loader(args)
@@ -190,7 +193,11 @@ def main_worker(gpu, args):
             print(' : save pth for epoch {}'.format(epoch + 1))
 
 
+
 def do_train(train_loader, model, criterion, optimizer, epoch, args, leuven_bce_transposed):
+    leuven_list = leuven_bce_transposed.columns.to_list()
+    leuven_list.sort()
+    leuve_idx_to_class = {i: leuven_list[i] for i in range(len(leuven_list))}
     batch_time = utils.AverageMeter('Time', ':6.2f')
     data_time = utils.AverageMeter('Data', ':2.2f')
     losses = utils.AverageMeter('Loss', ':.4f')
@@ -205,23 +212,23 @@ def do_train(train_loader, model, criterion, optimizer, epoch, args, leuven_bce_
     # update lr
     learning_rate.update(current_lr)
 
-    for i, (input, target) in enumerate(train_loader):
+    for i, (input, target_img, target_class) in enumerate(train_loader):
         # measure data loading time
         data_time.update(time.time() - end)
         global iters
-        iters += 1
-         
+        iters += 1 
         input = input.cuda(non_blocking=True)
-        target = target.cuda(non_blocking=True)
-
+        target_img = target_img.cuda(non_blocking=True) 
         if args.leuven:
             output, leuven_output = model(input)
-            leuven_target = torch.tensor(np.array([leuven_bce_transposed[list(train_loader.dataset.class_to_idx.keys())[i]].to_numpy() for i in target])).cuda(non_blocking=True)
-            loss = LeuvenLoss(output, target, leuven_output, leuven_target, args.lambda_, iter, args.batch_size)
+            leuven_target = torch.tensor(np.array([leuven_bce_transposed[leuve_idx_to_class[i]].to_numpy() for i in target_class.cpu().numpy()])).cuda(non_blocking=True)
+            leuven_target = leuven_target.cuda(non_blocking=True)
+            # loss, bce_loss, mse_loss = LeuvenLoss(output, target_img, leuven_output, leuven_target, args.lambda_, iters, args.batch_size, leuven_bce_transposed['pos_weight'])
+            loss, bce_loss, mse_loss = LeuvenLoss(output, target_img, leuven_output, leuven_target, args.lambda_, iters, args.batch_size, None)
         else:
             output = model(input)
-            loss = criterion(output, target)
-
+            # the target is the input
+            loss = criterion(output, input)
         # compute gradient and do solver step
         optimizer.zero_grad()
         # backward
@@ -241,7 +248,10 @@ def do_train(train_loader, model, criterion, optimizer, epoch, args, leuven_bce_
             end = time.time()   
 
         if i % args.print_freq == 0 and args.rank == 0:
-            wandb.log({"loss":loss.item()}, step=iters)
+            if args.leuven:
+                wandb.log({"loss":loss.item(), "mse_loss":mse_loss, "bce_loss":bce_loss}, step=iters)
+            else:
+                wandb.log({"loss":loss.item()}, step=iters)
             progress.display(i)
 
 if __name__ == '__main__':

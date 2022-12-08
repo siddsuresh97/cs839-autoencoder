@@ -86,12 +86,15 @@ class LeuvenResnetEncoder(nn.Module):
     def __init__ (self):
         super(LeuvenResnetEncoder, self).__init__()
         self.encoder = nn.Sequential(
-            nn.AdaptiveAvgPool2d((None,2048)),
-            nn.Linear(2048, 2048),
+            nn.AdaptiveAvgPool2d((1,1)),
+            nn.Flatten(),
+            nn.Linear(2048, 1024),
             nn.ReLU(),
-            nn.Linear(2048, 2048),
+            nn.Linear(1024, 500),
             nn.ReLU(),
-            nn.Linear(2048, 2057)
+            nn.Linear(500, 1024),
+            nn.ReLU(),
+            nn.Linear(1024, 2057)
         )
     def forward(self, x):
         # import ipdb;ipdb.set_trace()

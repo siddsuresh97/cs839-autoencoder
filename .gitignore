@@ -1,0 +1,12 @@
+# ignore directory wandb by adding it to .gitignore
+r/
+wandb/
+
+
+
+
+
+
+
+
+

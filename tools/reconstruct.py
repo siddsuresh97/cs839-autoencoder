@@ -33,6 +33,7 @@ def get_args():
     args.parallel = 0
     args.batch_size = 1
     args.workers = 0
+    args.leuven = True
 
     return args
 
@@ -57,7 +58,7 @@ def main(args):
     model.eval()
     print('=> reconstructing ...')
     with torch.no_grad():
-        for i, (input, target) in enumerate(train_loader):
+        for i, (input, target, _) in enumerate(train_loader):
             
             input = input.cuda(non_blocking=True)
             target = target.cuda(non_blocking=True)
@@ -65,7 +66,7 @@ def main(args):
             output = model(input)
 
             input = transforms.ToPILImage()(input.squeeze().cpu())
-            output = transforms.ToPILImage()(output.squeeze().cpu())
+            output = transforms.ToPILImage()(output[0].squeeze().cpu())
 
             plt.subplot(8,16,2*i+1, xticks=[], yticks=[])
             plt.imshow(input)
