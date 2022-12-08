@@ -83,7 +83,6 @@ def resume_from_checkpoint(model, optimizer, args):
     saved_checpoints.sort()
     epoch_fname = saved_checpoints[-1]
     print(epoch_fname)
-    import ipdb; ipdb.set_trace()
     print("Epoch {}".format(epoch_fname))
     resume_path = os.path.join(args.pth_save_fold, args.exp_name, epoch_fname)
     if os.path.isfile(resume_path):
