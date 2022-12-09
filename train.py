@@ -15,6 +15,7 @@ import utils
 import models.builer as builder
 import dataloader
 
+
 def get_args():
     # parse the args
     print('=> parse the args ...')
@@ -81,6 +82,7 @@ def setup_wandb(args):
 
 
 def resume_from_checkpoint(model, optimizer, args):
+
     saved_checpoints = os.listdir(os.path.join(args.pth_save_fold, args.exp_name))
     saved_checpoints.sort()
     epoch_fname = saved_checpoints[-1]
@@ -213,6 +215,7 @@ def main_worker(gpu, args):
                     'arch': args.arch,
                     'state_dict': state_dict,
                     'optimizer' : optimizer.state_dict(),
+                    'wandb_id': wandb.run.id,
                 },
                 os.path.join(args.pth_save_fold, args.exp_name, '{}.pth'.format(str(epoch).zfill(3)))
             )

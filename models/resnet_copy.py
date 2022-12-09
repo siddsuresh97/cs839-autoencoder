@@ -28,16 +28,16 @@ class ResNetAutoEncoder(nn.Module):
 
         self.encoder = ResNetEncoder(configs=configs,       bottleneck=bottleneck)
         self.decoder = ResNetDecoder(configs=configs[::-1], bottleneck=bottleneck)
-        
+        self.leuven_encoder = LeuvenResnetEncoder()
         # self.leuven_decoder = LeuvenResnetDecoder()
         self.leuven = leuven
     
     def forward(self, x):
-        leuven_normspace = self.encoder(x)
-        # if self.leuven:
-        #     leuven_normspace = self.leuven_encoder(x)
-        #     # x = self.leuven_decoder(leuven_normspace)
-        x = self.decoder(leuven_normspace)
+        x = self.encoder(x)
+        if self.leuven:
+            leuven_normspace = self.leuven_encoder(x)
+            # x = self.leuven_decoder(leuven_normspace)
+        x = self.decoder(x)
 
         if self.leuven:
             return x, leuven_normspace
@@ -85,9 +85,9 @@ class ResNet(nn.Module):
 class LeuvenResnetEncoder(nn.Module):
     def __init__ (self):
         super(LeuvenResnetEncoder, self).__init__()
-        self.flatten = nn.Flatten(start_dim=1)
         self.encoder = nn.Sequential(
-            nn.Linear(2048*7*7, 2048),
+            nn.AdaptiveAvgPool2d((1,1)),
+            nn.Flatten(),
             nn.Linear(2048, 1024),
             nn.ReLU(),
             nn.Linear(1024, 500),
@@ -97,28 +97,26 @@ class LeuvenResnetEncoder(nn.Module):
             nn.Linear(1024, 2057)
         )
     def forward(self, x):
-        x = self.flatten(x)
+        # import ipdb;ipdb.set_trace()
         x = self.encoder(x)
         return x
 
-class LeuvenResnetDecoder(nn.Module):
-    def __init__ (self):
-        super(LeuvenResnetDecoder, self).__init__()
-        self.decoder = nn.Sequential(
-            nn.Linear(2057, 1024),
-            nn.ReLU(),
-            nn.Linear(1024, 500),
-            nn.ReLU(),
-            nn.Linear(500, 1024),
-            nn.ReLU(),
-            nn.Linear(1024, 2048*7*7),
-            nn.ReLU()
-        )
-        self.unflatten = nn.Unflatten(dim=1, unflattened_size=(2048, 7, 7))
-    def forward(self, x):
-        x = self.decoder(x)
-        x = self.unflatten(x)
-        return x
+# class LeuvenResnetDecoder(nn.Module):
+#     def __init__ (self):
+#         super(LeuvenResnetDecoder, self).__init__()
+#         self.decoder = nn.Sequential(
+#             nn.Linear(2057, 2048),
+#             nn.ReLU(),
+#             nn.Linear(2048, 2048),
+#             nn.ReLU(),
+#             nn.Linear(2048, 2048),
+#             nn.ReLU(),
+#             nn.AdaptiveAvgPool2d((1, 1))
+#         )
+#     def forward(self, x):
+#         x = self.decoder(x)
+#         return x
+
 
 class ResNetEncoder(nn.Module):
 
@@ -147,7 +145,6 @@ class ResNetEncoder(nn.Module):
             self.conv3 = EncoderResidualBlock(in_channels=64,  hidden_channels=128, layers=configs[1], downsample_method="conv")
             self.conv4 = EncoderResidualBlock(in_channels=128, hidden_channels=256, layers=configs[2], downsample_method="conv")
             self.conv5 = EncoderResidualBlock(in_channels=256, hidden_channels=512, layers=configs[3], downsample_method="conv")
-        self.leuven_encoder = LeuvenResnetEncoder()
 
     def forward(self, x):
 
@@ -156,7 +153,7 @@ class ResNetEncoder(nn.Module):
         x = self.conv3(x)
         x = self.conv4(x)
         x = self.conv5(x)
-        x = self.leuven_encoder(x)
+
         return x
 
 class ResNetDecoder(nn.Module):
@@ -187,17 +184,18 @@ class ResNetDecoder(nn.Module):
             nn.ReLU(inplace=True),
             nn.ConvTranspose2d(in_channels=64, out_channels=3, kernel_size=7, stride=2, padding=3, output_padding=1, bias=False),
         )
-        self.leuven_decoder = LeuvenResnetDecoder()
+
         self.gate = nn.Sigmoid()
 
     def forward(self, x):
-        x = self.leuven_decoder(x)
+
         x = self.conv1(x)
         x = self.conv2(x)
         x = self.conv3(x)
         x = self.conv4(x)
         x = self.conv5(x)
         x = self.gate(x)
+
         return x
 
 class EncoderResidualBlock(nn.Module):
