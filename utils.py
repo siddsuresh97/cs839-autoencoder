@@ -87,6 +87,7 @@ def adjust_learning_rate_cosine(optimizer, epoch, args):
 def load_dict(resume_path, model):
     if os.path.isfile(resume_path):
         checkpoint = torch.load(resume_path)
+        import ipdb;ipdb.set_trace()
         model_dict = model.state_dict()
         model_dict.update(checkpoint['state_dict'])
         wandb.run = wandb.init(resume='must', id=checkpoint['wandb_id'])
