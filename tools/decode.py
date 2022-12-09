@@ -25,6 +25,7 @@ def get_args():
     parser.add_argument('--arch', default='vgg16', type=str, 
                         help='backbone architechture')
     parser.add_argument('--resume', type=str)      
+    parser.add_argument('--leuven', action='store_true', help='leuven')
     
     args = parser.parse_args()
 
@@ -36,10 +37,12 @@ def get_args():
 
 def random_sample(arch):
 
-    if arch in ["vgg11", "vgg13", "vgg16", "vgg19", "resnet18", "resnet34"]:
+    if arch in ["vgg11", "vgg13", "vgg16", "vgg19", "resnet34"]:
         return torch.randn((1,512,7,7))
     elif arch in ["resnet50", "resnet101", "resnet152"]:
         return torch.randn((1,2048,7,7))
+    elif arch == 'resnet18':
+        return torch.randn((1,2057))
     else:
         raise NotImplementedError("Do not have implemention except VGG and ResNet")
 

@@ -89,7 +89,7 @@ def load_dict(resume_path, model):
         checkpoint = torch.load(resume_path)
         model_dict = model.state_dict()
         model_dict.update(checkpoint['state_dict'])
-        wandb.run = wandb.init(resume='must', id=checkpoint['wandb_id'])
+        # wandb.run = wandb.init(resume='must', id=checkpoint['wandb_id'])
         model.load_state_dict(model_dict)
         # delete to release more space
         del checkpoint

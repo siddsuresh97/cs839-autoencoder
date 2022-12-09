@@ -25,7 +25,6 @@ class ResNetAutoEncoder(nn.Module):
     def __init__(self, configs, bottleneck, leuven):
 
         super(ResNetAutoEncoder, self).__init__()
-
         self.encoder = ResNetEncoder(configs=configs,       bottleneck=bottleneck)
         self.decoder = ResNetDecoder(configs=configs[::-1], bottleneck=bottleneck)
         
@@ -168,7 +167,6 @@ class ResNetDecoder(nn.Module):
             raise ValueError("Only 4 layers can be configued")
 
         if bottleneck:
-
             self.conv1 = DecoderBottleneckBlock(in_channels=2048, hidden_channels=512, down_channels=1024, layers=configs[0])
             self.conv2 = DecoderBottleneckBlock(in_channels=1024, hidden_channels=256, down_channels=512,  layers=configs[1])
             self.conv3 = DecoderBottleneckBlock(in_channels=512,  hidden_channels=128, down_channels=256,  layers=configs[2])

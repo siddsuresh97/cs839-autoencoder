@@ -26,7 +26,8 @@ def get_args():
     parser.add_argument('--arch', default='vgg16', type=str, 
                         help='backbone architechture')
     parser.add_argument('--resume', type=str)
-    parser.add_argument('--val_list', type=str)              
+    parser.add_argument('--val_list', type=str) 
+    parser.add_argument('--leuven', action='store_true', help='leuven')             
     
     args = parser.parse_args()
 
