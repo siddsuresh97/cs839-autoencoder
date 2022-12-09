@@ -281,7 +281,7 @@ def do_train(train_loader, model, criterion, optimizer, epoch, args, leuven_bce_
             if args.leuven:
                 wandb.log({"loss":loss.item(), "mse_loss":mse_loss, "bce_loss":bce_loss}, step=iters)
             else:
-                wandb.log({"loss":loss.item()}, step=iters)
+                wandb.log({"mse_loss":loss.item()}, step=iters)
             progress.display(i)
 
 if __name__ == '__main__':
