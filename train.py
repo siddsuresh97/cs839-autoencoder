@@ -60,7 +60,8 @@ def get_args():
     # add a store_true argument
     parser.add_argument('--leuven', action='store_true', help='leuven')
     # add a float argument 
-    parser.add_argument('--lambda_', type=float, default=1, help='loss hyperparameter')
+    parser.add_argument('--lambda_1', type=float, default=1, help='bce loss hyperparameter')
+    parser.add_argument('--lambda_2', type=float, default=1, help='mse loss hyperparameter')
     parser.add_argument('--resume', action='store_true', help='leuven')
     
     args = parser.parse_args()
@@ -125,7 +126,7 @@ def main(args):
         args.world_size = 1
         main_worker(1, args)
 
-def LeuvenLoss(output, target, leuven_output, leuven_target, lambda_, iter, batch_size, pos_weights):
+def LeuvenLoss(output, target, leuven_output, leuven_target, lambda_1, lambda_2, iter, batch_size, pos_weights):
     # compute the loss which is a combination of the binary cross entropy loss and the mse loss
     # the loss is a weighted sum of the two losses
     # the weights are determined by the lambda parameter
@@ -144,7 +145,7 @@ def LeuvenLoss(output, target, leuven_output, leuven_target, lambda_, iter, batc
     # if iter%30 == 0:
     #     print('BCE_loss: ', BCE_loss)
     #     print('MSE_loss: ', MSE_loss)
-    total_loss = lambda_ * BCE_loss +  MSE_loss
+    total_loss = (lambda_1 * BCE_loss) +  (lambda_2 * MSE_loss)
     return total_loss,BCE_loss.item(), MSE_loss.item() 
     
 def main_worker(gpu, args):
@@ -254,7 +255,7 @@ def do_train(train_loader, model, criterion, optimizer, epoch, args, leuven_bce_
             leuven_target = torch.tensor(np.array([leuven_bce_transposed[leuve_idx_to_class[i]].to_numpy() for i in target_class.cpu().numpy()])).cuda(non_blocking=True)
             leuven_target = leuven_target.cuda(non_blocking=True)
             # loss, bce_loss, mse_loss = LeuvenLoss(output, target_img, leuven_output, leuven_target, args.lambda_, iters, args.batch_size, leuven_bce_transposed['pos_weight'])
-            loss, bce_loss, mse_loss = LeuvenLoss(output, target_img, leuven_output, leuven_target, args.lambda_, iters, args.batch_size, None)
+            loss, bce_loss, mse_loss = LeuvenLoss(output, target_img, leuven_output, leuven_target, args.lambda_1, args.lambda_2, iters, args.batch_size, None)
         else:
             output = model(input)
             # the target is the input
