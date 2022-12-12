@@ -83,7 +83,6 @@ def setup_wandb(args):
 
 
 def resume_from_checkpoint(model, optimizer, args):
-
     saved_checpoints = os.listdir(os.path.join(args.pth_save_fold, args.exp_name))
     saved_checpoints.sort()
     epoch_fname = saved_checpoints[-1]
@@ -172,14 +171,14 @@ def main_worker(gpu, args):
     
     if args.rank == 0:
         print('=> building the oprimizer ...')
-    # optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), args.lr,weight_decay=args.weight_decay)
+    optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), args.lr,weight_decay=args.weight_decay)
     if args.resume:
         model, optimizer = resume_from_checkpoint(model, optimizer, args)
-    optimizer = torch.optim.SGD(
-            filter(lambda p: p.requires_grad, model.parameters()),
-            args.lr,
-            momentum=args.momentum,
-            weight_decay=args.weight_decay)    
+    # optimizer = torch.optim.SGD(
+    #         filter(lambda p: p.requires_grad, model.parameters()),
+    #         args.lr,
+    #         momentum=args.momentum,
+    #         weight_decay=args.weight_decay)    
     if args.rank == 0:
         print('=> building the dataloader ...')
     train_loader = dataloader.train_loader(args)
